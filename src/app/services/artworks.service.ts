@@ -19,47 +19,47 @@ export class ArtworksService {
 
   constructor(private http: HttpClient) { }
   public getAuthor(id:string):Observable<Member>{
-    const auth$ = this.http.get<Member>(`http://localhost:3000/artworks/auth/${id}`);
+    const auth$ = this.http.get<Member>(`${this.serverUrl}/artworks/auth/${id}`);
     return auth$;
   }
   public list(): Observable<Array<artwork>> {
 
-    const artworks$ = this.http.get<artwork[]>('http://localhost:3000/artworks/list');
+    const artworks$ = this.http.get<artwork[]>(`${this.serverUrl}/artworks/list`);
 
     return artworks$;
   }
   public get(id:string): Observable<Array<artwork>> {
 
-    const artworks$ = this.http.get<artwork[]>(`http://localhost:3000/artworks/list/${id}`);
-    console.log(`http://localhost:3000/artworks/list/${id}`);
+    const artworks$ = this.http.get<artwork[]>(`${this.serverUrl}/artworks/list/${id}`);
+    console.log(`${this.serverUrl}/artworks/list/${id}`);
     return artworks$;
   }
   public getAuthArtwork(id:string):Observable<Array<artwork>>{
-    const artworks$ = this.http.get<artwork[]>(`http://localhost:3000/artworks/byauth/${id}`);
+    const artworks$ = this.http.get<artwork[]>(`${this.serverUrl}/artworks/byauth/${id}`);
     return artworks$;
   }
   public getone(id:string): Observable<artwork> {
 
-    const artworks$ = this.http.get<artwork>(`http://localhost:3000/artworks/list/${id}`);
-    console.log(`http://localhost:3000/artworks/list/${id}`);
+    const artworks$ = this.http.get<artwork>(`${this.serverUrl}/artworks/list/${id}`);
+    console.log(`${this.serverUrl}/artworks/list/${id}`);
     return artworks$;
   }
   public update_artwork(newArtwork: artwork){
-    const url=`http://localhost:3000/artworks/list/${newArtwork.id}`;
+    const url=`${this.serverUrl}/artworks/list/${newArtwork.id}`;
     return this.http.put<any>(url,newArtwork);
   }
   public publishArtwork(newArtwork: artwork): Observable<any> {
-    const url = `http://localhost:3000/artworks/new`;
+    const url = `${this.serverUrl}/artworks/new`;
     return this.http.post<any>(url, newArtwork)
     .pipe(
       catchError(this.handleError<artwork>(`publish artwork`))
     );
   }
   public deleteartwork(artwork:artwork):Observable<Array<artwork>>{
-    const url = `http://localhost:3000/artworks/list/${artwork.id}`;
+    const url = `${this.serverUrl}/artworks/list/${artwork.id}`;
     return this.http.post<Array<artwork>>(url,artwork);
   }
-  
+
         /**
    * Handle Http operation that failed.
    * Let the app continue.
